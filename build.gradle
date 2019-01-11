@@ -23,3 +23,31 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+task runGCELocalServer {
+    dependsOn ':backend:appengineRun'
+
+    doLast {
+        println "Server running..."
+    }
+}
+task runTest {
+    shouldRunAfter 'runGCELocalServer'
+    dependsOn ':app:connectedCheck'
+    doLast {
+        println "Testing finished..."
+    }
+}
+task stopLocalServer {
+    shouldRunAfter 'runTest'
+    dependsOn ':backend:appengineStop'
+    doLast {
+        println "Server stopped.."
+    }
+}
+
+task runLocalServerTest {
+    dependsOn = ['runGCELocalServer', 'runTest', 'stopLocalServer']
+}
+
+
+

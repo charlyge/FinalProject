@@ -13,15 +13,12 @@ import com.charlyge.android.mylibrary.DisplayJokesActivity;
 import static com.charlyge.android.mylibrary.DisplayJokesActivity.DISPLAY_JOKES_KEY;
 
 
-public class MainActivity extends AppCompatActivity implements EndpointsAsyncTask.AsynTaskListener {
-
-    private ProgressBar progressBar;
+public class MainActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        progressBar = findViewById(R.id.progress_bar);
 
     }
 
@@ -48,26 +45,5 @@ public class MainActivity extends AppCompatActivity implements EndpointsAsyncTas
         return super.onOptionsItemSelected(item);
     }
 
-    public void tellJoke(View view) {
 
-    new EndpointsAsyncTask(MainActivity.this).execute();
-
-
-    }
-
-
-    @Override
-    public void onTaskStart() {
-        runOnUiThread(() -> progressBar.setVisibility(View.VISIBLE));
-
-    }
-
-    @Override
-    public void onTaskComplete(String result) {
-        runOnUiThread(() -> progressBar.setVisibility(View.GONE));
-
-       Intent intent = new Intent(MainActivity.this,DisplayJokesActivity.class);
-       intent.putExtra(DISPLAY_JOKES_KEY,result);
-       startActivity(intent);
-    }
 }
