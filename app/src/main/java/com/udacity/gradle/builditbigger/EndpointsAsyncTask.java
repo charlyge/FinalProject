@@ -2,6 +2,7 @@ package com.udacity.gradle.builditbigger;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -39,15 +40,14 @@ interface AsynTaskListener {
         try {
             return myApiService.getJokeEndPoint().execute().getData();
         } catch (IOException e) {
-            return e.getMessage();
+            Log.i("Error Retrieving Jokes", e.getMessage());
+            return null;
         }
     }
 
     @Override
     protected void onPostExecute(String result) {
             asynTaskListener.onTaskComplete(result);
-
-
     }
 }
 

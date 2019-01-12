@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class EndPointAsyntaskTest implements EndpointsAsyncTask.AsynTaskListener  {
 
+
     @Test
     public void AsyncTaskTest() throws Exception {
         new EndpointsAsyncTask(this).execute();
@@ -23,6 +24,9 @@ public class EndPointAsyntaskTest implements EndpointsAsyncTask.AsynTaskListener
 
     @Override
     public void onTaskComplete(String result) {
-        assertTrue("Error: we found this Joke = " + result, result != null);
+
+        assertNotNull("Joke is null", result);
+        assertFalse("Joke string is empty", result.isEmpty());
+
     }
 }
